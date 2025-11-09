@@ -3,6 +3,11 @@ kind: Service
 metadata:
   name: svc-lb2-{{ .Values.apptype }}-{{ .Values.appname }}
   namespace: ns-{{ .Values.apptype }}-{{ .Values.appname }}
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: "lb"
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
 spec:
   selector:
     app: app-{{ .Values.apptype }}-{{ .Values.appname }}
