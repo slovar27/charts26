@@ -1,0 +1,10 @@
+apptype: tools
+
+appname: ingress1
+
+storageclass: do-block-storage
+
+pvcstorage: 2Gi
+
+nodePort: 30003
+
