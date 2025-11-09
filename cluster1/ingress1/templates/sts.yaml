@@ -26,7 +26,7 @@ spec:
           claimName: pvc-vhost
       containers:
       - name: cnt-ingress1
-        image: leshkin/ingress:v1
+        image: leshkin/ingress:v23
         command: ["/bin/bash", "/shared/start.sh"]
         ports:
         - containerPort: 80
