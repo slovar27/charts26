@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: svc-lb-{{ .Values.apptype }}-{{ .Values.appname }}
   namespace: ns-{{ .Values.apptype }}-{{ .Values.appname }}
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: "nlb"
 spec:
   selector:
     app: app-{{ .Values.apptype }}-{{ .Values.appname }}
