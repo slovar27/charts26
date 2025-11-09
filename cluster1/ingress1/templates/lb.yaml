@@ -5,11 +5,9 @@ metadata:
   namespace: ns-{{ .Values.apptype }}-{{ .Values.appname }}
   annotations:
     oci.oraclecloud.com/load-balancer-type: "nlb"
-spec:
-  selector:
-    app: app-{{ .Values.apptype }}-{{ .Values.appname }}
-  ports:
-    - name: port80
+    oci-network-load-balancer.oraclecloud.com/security-list-management-mode: "All"
+    oci-network-load-balancer:
+      oraclecloud:
       protocol: TCP
       port: 80
       targetPort: 80
