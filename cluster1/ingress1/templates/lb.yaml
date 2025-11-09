@@ -6,8 +6,11 @@ metadata:
   annotations:
     oci.oraclecloud.com/load-balancer-type: "nlb"
     oci-network-load-balancer.oraclecloud.com/security-list-management-mode: "All"
-    oci-network-load-balancer:
-      oraclecloud:
+spec:
+  selector:
+    app: app-{{ .Values.apptype }}-{{ .Values.appname }}
+  ports:
+    - name: port80
       protocol: TCP
       port: 80
       targetPort: 80
@@ -20,4 +23,3 @@ metadata:
 #      port: 4010
 #      targetPort: 4010
   type: LoadBalancer
-
