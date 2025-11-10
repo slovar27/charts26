@@ -15,15 +15,9 @@ spec:
         app: app-{{ .Values.apptype }}-{{ .Values.appname }}
     spec:
       volumes:
-      - name: vol-certs
+      - name: vol1
         persistentVolumeClaim:
-          claimName: pvc-certs
-      - name: vol-files
-        persistentVolumeClaim:
-          claimName: pvc-files
-      - name: vol-vhost
-        persistentVolumeClaim:
-          claimName: pvc-vhost
+          claimName: pvc1
       containers:
       - name: cnt-ingress1
         image: docker.io/leshkin/ingress:v23
@@ -33,9 +27,5 @@ spec:
         - containerPort: 443
         - containerPort: 4010
         volumeMounts:
-        - name: vol-certs
+        - name: vol1
           mountPath: /etc/letsencrypt
-        - name: vol-files
-          mountPath: /shared/user-files
-        - name: vol-vhost
-          mountPath: /shared/vhost-user
