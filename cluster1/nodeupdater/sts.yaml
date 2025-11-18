@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: nodeup
+  name: nodeup
+spec:
+  selector:
+    matchLabels:
+      app: app-nodeup
+  serviceName: sn-nodeup
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-nodeup
+    spec:
+      serviceAccountName: nodeup
+      containers:
+        - name: updater
+          image: docker.io/bitnami/kubectl
+          command:
+            - "bin/bash"
+            - "-c"
+            - "while true; do kubectl taint nodes --all oci.oraclecloud.com/oke-is-preemptible=present:NoSchedule-; sleep 60 ; done"
+      tolerations:
+        - key: "oci.oraclecloud.com/oke-is-preemptible"
+          operator: "Equal"
+          value: "present"
+          effect: "NoSchedule"

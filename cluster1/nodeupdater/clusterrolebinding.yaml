@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nodeup-rb
+subjects:
+  - kind: ServiceAccount
+    name: nodeup
+    namespace: nodeup
+roleRef:
+  kind: ClusterRole
+  name: nodeup-role
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nodeup
+  namespace: nodeup
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: nodeup
+          containers:
+          - name: updater
+            image: docker.io/bitnami/kubectl
+            command:
+            - "bin/bash"
+            - "-c"
+            - "kubectl taint nodes --allow-missing-template-keys --all oci.oraclecloud.com/oke-is-preemptible=present:NoSchedule-"
+          restartPolicy: Never
+          tolerations:
+            - key: "oci.oraclecloud.com/oke-is-preemptible"
+              operator: "Equal"
+              value: "present"

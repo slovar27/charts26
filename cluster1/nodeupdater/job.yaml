@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nodeupdater-job
+  namespace: nodeup
+spec:
+  template:
+    metadata:
+      name: updater
+    spec:
+      serviceAccountName: nodeup
+      containers:
+      - name: updater
+        image: docker.io/bitnami/kubectl
+        command:
+         - "bin/bash"
+         - "-c"
+         - "while true; do kubectl taint nodes --all oci.oraclecloud.com/oke-is-preemptible=present:NoSchedule-; sleep 60 ; done"
+      restartPolicy: Never
+      tolerations:
+      - key: "oci.oraclecloud.com/oke-is-preemptible"
+        operator: "Equal"
+        value: "present"
+        effect: "NoSchedule"
