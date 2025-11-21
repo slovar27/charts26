@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-cip-{{ .Values.apptype }}-{{ .Values.appname }}
+  namespace: ns-{{ .Values.apptype }}-{{ .Values.appname }}
+spec:
+  selector:
+    app: tpl-{{ .Values.apptype }}-{{ .Values.appname }}
+  ports:
+    - protocol: TCP
+      port: 30150
+      targetPort: 5002

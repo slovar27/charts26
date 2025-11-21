@@ -12,6 +12,6 @@ pvcstorage: 40Gi
 
 nodePort: 30096
 
-mysqlrootpassword: jklgsd79780g543278JKJKGYFQXPVJHoiwiom843poigfdKJKJBBVQAMU
+mysqlrootpassword: mariadbvultrc179780g543278JKJKGYFQXPVJHoiwiodfsertAPOOQAMU
 
 image: mariadb:12

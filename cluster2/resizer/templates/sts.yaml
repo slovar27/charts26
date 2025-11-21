@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: ns-{{ .Values.apptype }}-{{ .Values.appname }}
+  name: {{ .Values.apptype }}-{{ .Values.appname }}
+spec:
+  selector:
+    matchLabels:
+      app: tpl-{{ .Values.apptype }}-{{ .Values.appname }}
+  serviceName: sn-{{ .Values.apptype }}-{{ .Values.appname }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tpl-{{ .Values.apptype }}-{{ .Values.appname }}
+    spec:
+      tolerations:
+      - effect: NoSchedule
+        key: oci.oraclecloud.com/oke-is-preemptible
+        operator: Exists
+      volumes:
+      - name: vol-{{ .Values.apptype }}-{{ .Values.appname }}
+        persistentVolumeClaim:
+          claimName: pvc-{{ .Values.apptype }}-{{ .Values.appname }}
+
+      - name: vol-secret
+        secret:
+          secretName: secret-files
+          items:
+          - key: config
+            path: config
+          - key: pk
+            path: pk
+
+      containers:
+      - name: cnt-{{ .Values.apptype }}
+        image: {{ .Values.mainimage }}
+        volumeMounts:
+        - name: vol-{{ .Values.apptype }}-{{ .Values.appname }}
+          mountPath: /flask/storage
+        - name: vol-secret
+          mountPath: /root/.oci/config
+          subPath: config
+        - name: vol-secret
+          mountPath: /root/.oci/pk
+          subPath: pk
+
+        env:
+        - name: dbuser
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: dbuser
+        - name: dbpasswd
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: dbpasswd
+        - name: dbhost
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: dbhost
+        - name: dbport
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: dbport
+        - name: dbname
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: dbname
+        - name: aws_access_key_id
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: aws_access_key_id
+        - name: aws_secret_access_key
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: aws_secret_access_key
+        - name: region_name
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: region_name
+        - name: endpoint_url
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: endpoint_url
+        - name: bucket
+          valueFrom:
+            secretKeyRef:
+              name: secret-env
+              key: bucket
+      imagePullSecrets:
+      - name: reg-leshkin
+
+
+
