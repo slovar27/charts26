@@ -8,7 +8,7 @@ storageclass-do: do-block-storage
 
 storageclass-k3s: local-path
 
-pvcstorage: 20Gi
+pvcstorage: 40Gi
 
 nodePort: 30096
 
