@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: ns-{{ .Values.apptype }}-{{ .Values.appname }}
+  name: sts-{{ .Values.appname }}
+spec:
+  selector:
+    matchLabels:
+      app: app-{{ .Values.apptype }}-{{ .Values.appname }}
+  serviceName: sn-{{ .Values.appname }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-{{ .Values.apptype }}-{{ .Values.appname }}
+    spec:
+      volumes:
+      - name: vol1
+        persistentVolumeClaim:
+          claimName: pvc1
+      containers:
+      - name: cnt-ingress1
+        image: docker.io/leshkin/ingress:v23
+        command: ["/bin/bash", "/shared/start.sh"]
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        - containerPort: 4010
+        volumeMounts:
+        - name: vol1
+          mountPath: /etc/letsencrypt

@@ -1,0 +1,10 @@
+apptype: tools
+
+appname: ingress1
+
+storageclass: vultr-block-storage-hdd
+
+pvcstorage: 40Gi
+
+nodePort: 30003
+
