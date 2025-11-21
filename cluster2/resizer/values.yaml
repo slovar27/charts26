@@ -15,7 +15,7 @@ storageclass-ovh3: csi-cinder-high-speed-gen2
 
 pvcstorage: 80Gi
 
-mainimage: rg.nl-ams.scw.cloud/tools/resizer:v211125
+mainimage: ams.vultrcr.com/regams/resizer:v211125
 #mainimage: nginx
 
 aws_access_key_id: "INSERT HERE"
