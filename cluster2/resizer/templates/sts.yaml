@@ -81,7 +81,7 @@ spec:
               name: secret-env
               key: bucket
       imagePullSecrets:
-      - name: regscw
+      - name: regsecret
 
 
 
