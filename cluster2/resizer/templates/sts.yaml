@@ -23,28 +23,12 @@ spec:
         persistentVolumeClaim:
           claimName: pvc-{{ .Values.apptype }}-{{ .Values.appname }}
 
-      - name: vol-secret
-        secret:
-          secretName: secret-files
-          items:
-          - key: config
-            path: config
-          - key: pk
-            path: pk
-
       containers:
       - name: cnt-{{ .Values.apptype }}
         image: {{ .Values.mainimage }}
         volumeMounts:
         - name: vol-{{ .Values.apptype }}-{{ .Values.appname }}
           mountPath: /flask/storage
-        - name: vol-secret
-          mountPath: /root/.oci/config
-          subPath: config
-        - name: vol-secret
-          mountPath: /root/.oci/pk
-          subPath: pk
-
         env:
         - name: dbuser
           valueFrom:
@@ -97,7 +81,7 @@ spec:
               name: secret-env
               key: bucket
       imagePullSecrets:
-      - name: reg-leshkin
+      - name: regscw
 
 
 

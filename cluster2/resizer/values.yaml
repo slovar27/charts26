@@ -6,7 +6,7 @@ storageclass-lin: linode-block-storage-retain
 
 storageclass-k3s: local-path
 
-storageclass: local-path
+storageclass: vultr-block-storage-hdd
 
 storageclass-oci: oci-bv
 storageclass-ovh1: csi-cinder-classic
@@ -15,5 +15,8 @@ storageclass-ovh3: csi-cinder-high-speed-gen2
 
 pvcstorage: 80Gi
 
-mainimage: registry1.host247.org/picdepo-resizer:v22
+mainimage: rg.nl-ams.scw.cloud/tools/resizer:v211125
 #mainimage: nginx
+
+aws_access_key_id: "INSERT HERE"
+aws_secret_access_key: "INSERT HERE"
