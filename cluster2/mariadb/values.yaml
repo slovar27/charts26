@@ -1,0 +1,17 @@
+apptype: mariadb
+
+appname: app1
+
+storageclass: vultr-block-storage-hdd
+
+storageclass-do: do-block-storage
+
+storageclass-k3s: local-path
+
+pvcstorage: 20Gi
+
+nodePort: 30096
+
+mysqlrootpassword: jklgsd79780g543278JKJKGYFQXPVJHoiwiom843poigfdKJKJBBVQAMU
+
+image: mariadb:12

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql2
+  namespace: ns-{{ .Values.apptype }}-{{ .Values.appname }}
+spec:
+  serviceName: "service-mysql1"
+  selector:
+    matchLabels:
+      app: tpl-{{ .Values.apptype }}-{{ .Values.appname }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tpl-{{ .Values.apptype }}-{{ .Values.appname }}
+    spec:
+      volumes:
+      - name: vol1
+        persistentVolumeClaim:
+          claimName: pvc-{{ .Values.apptype }}-{{ .Values.appname }}
+      containers:
+      - name: cnt-mysql
+        image: {{ .Values.image }}
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: {{ .Values.mysqlrootpassword }}
+        volumeMounts:
+        - name: vol1
+          mountPath: /var/lib/mysql
+
