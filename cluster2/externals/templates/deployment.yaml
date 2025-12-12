@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exteranals1
+  namespace: externals
+  labels:
+    app: externals-app1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: extrtnals
+  template:
+    metadata:
+      labels:
+        app: extrtnals
+    spec:
+      containers:
+      - name: apche2
+        image: httpd:2.4
