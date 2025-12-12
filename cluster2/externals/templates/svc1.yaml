@@ -5,7 +5,7 @@ metadata:
   namespace: externals
 spec:
   selector:
-    app: externals-app1
+    app: externals
   ports:
     - protocol: TCP
       port: 80
