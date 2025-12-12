@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: exteranals1
+  name: externals1
   namespace: externals
   labels:
     app: externals-app1
